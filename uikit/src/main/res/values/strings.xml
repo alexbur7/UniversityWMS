@@ -1,0 +1,8 @@
+<resources>
+    <string name="unknown_error">Что-то пошло не так</string>
+    <string name="internet_error">Нет связи с сервером</string>
+    <string name="server_error">Ошибка с сервером</string>
+    <string name="validaton_error">Проверьте правильность заполненных полей</string>
+    <string name="unknown_server_error">На сервере что-то пошло не так</string>
+    <string name="auth_error">Ошибка при регистрации</string>
+</resources>
