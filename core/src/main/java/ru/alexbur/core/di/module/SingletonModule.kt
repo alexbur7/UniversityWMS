@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.alexbur.core.data.error_handler.ErrorHandlerImpl
 import ru.alexbur.core.data.providers.StringProvidersImpl
-import ru.alexbur.core.domain.erro_handler.ErrorHandler
+import ru.alexbur.core.domain.error_handler.ErrorHandler
 import ru.alexbur.core.domain.providers.StringProvider
 
 @Module

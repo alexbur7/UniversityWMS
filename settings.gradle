@@ -16,3 +16,4 @@ rootProject.name = "UniversityWMS"
 include ':app'
 include ':core'
 include ':uikit'
+include ':feature-authorization'

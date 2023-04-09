@@ -1,4 +1,4 @@
-package ru.alexbur.university_wms.ui.theme
+package ru.alexbur.uikit.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

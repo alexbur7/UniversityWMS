@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.HttpException
 import ru.alexbur.uikit.R
-import ru.alexbur.core.domain.erro_handler.ErrorHandler
+import ru.alexbur.core.domain.error_handler.ErrorHandler
 import java.net.ConnectException
 import javax.inject.Inject
 
