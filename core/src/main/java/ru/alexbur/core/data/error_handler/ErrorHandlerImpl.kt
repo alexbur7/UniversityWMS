@@ -1,17 +1,15 @@
 package ru.alexbur.core.data.error_handler
 
 import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.HttpException
-import ru.alexbur.uikit.R
 import ru.alexbur.core.domain.error_handler.ErrorHandler
+import ru.alexbur.uikit.R
 import java.net.ConnectException
 import javax.inject.Inject
 
 class ErrorHandlerImpl @Inject constructor(
-    @ApplicationContext
     private val context: Context
-): ErrorHandler {
+) : ErrorHandler {
 
     override fun handleError(error: Throwable): String {
         return when (error) {
