@@ -13,21 +13,14 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
-object NetworkModule {
+class NetworkModule {
 
     private val contentType = "application/json".toMediaType()
-    private const val BASE_URL = "http://34.88.54.200:9090/"
-
-    @Provides
-    fun provideJson(): Json {
-        return Json {
-            ignoreUnknownKeys = true
-        }
-    }
+    private val json = Json { ignoreUnknownKeys = true }
 
     @OptIn(ExperimentalSerializationApi::class)
     @Provides
-    fun provideConverterFactory(json: Json): Converter.Factory {
+    fun provideConverterFactory(): Converter.Factory {
         return json.asConverterFactory(contentType)
     }
 
@@ -54,5 +47,9 @@ object NetworkModule {
             .addConverterFactory(converterFactory)
             .baseUrl(BASE_URL)
             .build()
+    }
+
+    companion object{
+        private const val BASE_URL = "http://34.88.54.200:9090/"
     }
 }

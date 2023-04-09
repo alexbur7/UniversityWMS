@@ -13,7 +13,7 @@ import ru.alexbur.core.domain.providers.StringProvider
 import javax.inject.Singleton
 
 @Module
-interface SingletonModule {
+interface BindsModule {
 
     @Binds
     @Singleton
