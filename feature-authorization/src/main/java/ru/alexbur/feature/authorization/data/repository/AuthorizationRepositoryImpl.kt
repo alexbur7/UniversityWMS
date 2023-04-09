@@ -18,6 +18,12 @@ class AuthorizationRepositoryImpl @Inject constructor(
 
     override suspend fun auth(login: String, password: String): AuthorizationToken =
         withContext(dispatcherProvider.io) {
-            AuthorizationResponse.toModel(api.auth(AuthorizationRequest(login, password)))
+            AuthorizationResponse.toModel(api.auth(AuthorizationRequest(login, password))).also {
+                with(accountDataStore) {
+                    updateLogin(login)
+                    updatePassword(password)
+                    updateToken(it.accessToken)
+                }
+            }
         }
 }
