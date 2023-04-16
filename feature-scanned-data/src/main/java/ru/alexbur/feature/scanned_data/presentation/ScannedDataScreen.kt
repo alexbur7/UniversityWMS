@@ -1,9 +1,7 @@
 package ru.alexbur.feature.scanned_data.presentation
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -33,6 +31,8 @@ import ru.alexbur.feature.scanned_data.R
 import ru.alexbur.feature.scanned_data.di.ScannedDataComponent
 import ru.alexbur.feature.scanned_data.presentation.list.ScannedDataList
 import ru.alexbur.feature.scanned_data.presentation.utils.ScannedDataListItem
+import ru.alexbur.uikit.theme.BackgroundColor
+import ru.alexbur.uikit.theme.BottomNavigationHeight
 import ru.alexbur.uikit.theme.Secondary
 import javax.inject.Inject
 
@@ -75,7 +75,12 @@ fun ScannedDataScreen(
         }
     }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BackgroundColor)
+            .padding(bottom = BottomNavigationHeight)
+    ) {
         Text(
             modifier = Modifier
                 .fillMaxWidth()

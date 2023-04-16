@@ -2,6 +2,7 @@ package ru.alexbur.uikit.items
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,8 +22,8 @@ import androidx.compose.ui.unit.sp
 import ru.alexbur.uikit.R
 import ru.alexbur.uikit.theme.IconTint
 import ru.alexbur.uikit.theme.List
-import ru.alexbur.uikit.theme.TextColor
 import ru.alexbur.uikit.theme.Secondary
+import ru.alexbur.uikit.theme.TextColor
 
 @Composable
 fun InventoryItem(
@@ -35,7 +37,13 @@ fun InventoryItem(
     var isExpandable by remember { mutableStateOf(false) }
     Row(
         modifier = modifier
+            .padding(vertical = 8.dp, horizontal = 20.dp)
             .clip(RoundedCornerShape(24.dp))
+            .border(
+                width = 1.dp,
+                brush = Brush.verticalGradient(listOf(Secondary, List)),
+                shape = RoundedCornerShape(24.dp)
+            )
             .background(color = List)
             .clickable {
                 isExpandable = !isExpandable

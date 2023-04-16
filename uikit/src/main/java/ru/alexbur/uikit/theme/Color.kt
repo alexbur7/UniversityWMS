@@ -1,5 +1,6 @@
 package ru.alexbur.uikit.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val PrimaryFirst = Color(0xFF6461FC)
@@ -12,3 +13,4 @@ val Secondary = Color(0xFFEBF0F9)
 val IconTint = Color(0xFF2C0383)
 val SuccessColor = Color(0xFF58C64E)
 val ErrorColor = Color(0xFFEB3A3A)
+val BackgroundColor = Brush.verticalGradient(listOf(PrimaryFirst, BackgroundSecond))

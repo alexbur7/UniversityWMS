@@ -1,15 +1,23 @@
 package ru.alexbur.feature.scanned_data.data.models.response
 
 import android.annotation.SuppressLint
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import ru.alexbur.feature.scanned_data.domain.models.ScannedData
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Serializable
 class ScannedDataResponse(
+    @SerialName("barcode")
     val barcode: String,
+    @SerialName("name")
     val name: String,
+    @SerialName("date")
     val date: Long,
+    @SerialName("type")
     val type: String,
+    @SerialName("quantity")
     val quantity: Int
 ) {
     companion object {
@@ -25,9 +33,8 @@ class ScannedDataResponse(
 
         @SuppressLint("SimpleDateFormat")
         private fun getFormattedDate(scannedDate: Long): String {
-            val date = Date(scannedDate)
             val calendar = GregorianCalendar().apply {
-                time = date
+                time.time = scannedDate
                 timeZone = TimeZone.getDefault()
             }
             val formatter = SimpleDateFormat("dd.MM.yyyy")
