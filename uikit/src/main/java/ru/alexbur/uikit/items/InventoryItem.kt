@@ -19,9 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.alexbur.uikit.R
 import ru.alexbur.uikit.theme.IconTint
-import ru.alexbur.uikit.theme.Secondary
+import ru.alexbur.uikit.theme.List
 import ru.alexbur.uikit.theme.TextColor
-import ru.alexbur.uikit.theme.Tirtiary
+import ru.alexbur.uikit.theme.Secondary
 
 @Composable
 fun InventoryItem(
@@ -36,7 +36,7 @@ fun InventoryItem(
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(24.dp))
-            .background(color = Secondary)
+            .background(color = List)
             .clickable {
                 isExpandable = !isExpandable
             }
@@ -64,7 +64,7 @@ fun InventoryItem(
                     .padding(start = 4.dp),
                 text = title,
                 style = LocalTextStyle.current.copy(fontSize = 12.sp),
-                color = Tirtiary
+                color = Secondary
             )
 
             Text(
@@ -83,7 +83,7 @@ fun InventoryItem(
                         .padding(horizontal = 4.dp),
                     text = barcode,
                     style = LocalTextStyle.current.copy(fontSize = 14.sp),
-                    color = Tirtiary,
+                    color = Secondary,
                     textAlign = TextAlign.Center
                 )
             }

@@ -3,16 +3,23 @@ package ru.alexbur.feature.authorization.presentation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -20,6 +27,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import ru.alexbur.core.di.navigation.NavigationFactory
 import ru.alexbur.core.di.navigation.NavigationScreenFactory
+import ru.alexbur.core.presentation.ViewEvent
+import ru.alexbur.core.presentation.snackbar.UniversityWmsSnackBarHost
+import ru.alexbur.core.presentation.snackbar.showSnackBar
 import ru.alexbur.feature.authorization.R
 import ru.alexbur.feature.authorization.di.AuthorizationComponent
 import ru.alexbur.feature.authorization.presentation.shape.CustomShape
@@ -30,17 +40,31 @@ import javax.inject.Inject
 @Composable
 fun AuthorizationScreen(
     navController: NavController?,
-    viewModel: AuthorizationViewModel = viewModel(
-        modelClass = AuthorizationViewModel::class.java,
+    viewModel: AuthorizationViewModel = viewModel(modelClass = AuthorizationViewModel::class.java,
         key = null,
         factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return AuthorizationComponent.getComponent().getViewModel() as T
             }
-        }
-    )
+        })
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val viewEventLifecycleAware = remember(viewModel.viewEvent, lifecycleOwner) {
+        viewModel.viewEvent.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+    }
+
+    val viewEvent = viewEventLifecycleAware.collectAsState(initial = null)
+    val snackBarHostState = SnackbarHostState()
+    LaunchedEffect(key1 = viewEvent.value) {
+        when (val event = viewEvent.value) {
+            is ViewEvent.Navigation -> TODO()
+            is ViewEvent.ShowSnackBar -> {
+                snackBarHostState.showSnackBar(event.text, event.status)
+            }
+            else -> Unit
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -96,6 +120,8 @@ fun AuthorizationScreen(
             }
         }
     }
+
+    UniversityWmsSnackBarHost(hostState = snackBarHostState)
 }
 
 class AuthorizationScreenFactory @Inject constructor() : NavigationScreenFactory {

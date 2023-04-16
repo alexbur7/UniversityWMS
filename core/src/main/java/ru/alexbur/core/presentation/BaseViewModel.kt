@@ -3,6 +3,7 @@ package ru.alexbur.core.presentation
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
+import ru.alexbur.core.presentation.snackbar.SnackBarStatus
 
 abstract class BaseViewModel<VS : ViewState>(defaultState: VS) : ViewModel() {
 
@@ -12,7 +13,7 @@ abstract class BaseViewModel<VS : ViewState>(defaultState: VS) : ViewModel() {
     protected val viewEventMutable = Channel<ViewEvent>(Channel.BUFFERED)
     val viewEvent: Flow<ViewEvent> = viewEventMutable.receiveAsFlow()
 
-    protected suspend fun showSnackBar(text: String, isSuccess: Boolean) {
-        viewEventMutable.send(ViewEvent.ShowSnackBar(text, isSuccess))
+    protected suspend fun showSnackBar(text: String, status: SnackBarStatus) {
+        viewEventMutable.send(ViewEvent.ShowSnackBar(text, status))
     }
 }
