@@ -16,10 +16,14 @@ buildscript {
         compose_ui_version = '1.4.1'
         compose_hilt_navigation_version = '1.0.0'
         kotlin_version = '1.8.10'
+        coroutine_version = '1.6.4'
         hilt_version = '2.42'
         activity_version = '1.10.0'
         lifecycle_version = '2.6.1'
+        material_version = '1.8.0'
         material_3_version = '1.0.1'
+        placeholder_version = '0.24.2-alpha'
+        coil_version = '2.3.0'
     }
 
     dependencies {

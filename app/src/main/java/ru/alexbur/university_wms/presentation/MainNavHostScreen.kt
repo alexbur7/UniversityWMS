@@ -34,7 +34,6 @@ fun MainNavHostScreen(
             .background(PrimaryFirst),
         bottomBar = {
             BottomNavBar(
-                items = NavItem.NavBarItems.values(),
                 navController = controller
             )
         }

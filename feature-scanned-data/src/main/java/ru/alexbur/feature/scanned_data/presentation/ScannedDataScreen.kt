@@ -8,11 +8,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -33,7 +30,7 @@ import ru.alexbur.feature.scanned_data.presentation.list.ScannedDataList
 import ru.alexbur.feature.scanned_data.presentation.utils.ScannedDataListItem
 import ru.alexbur.uikit.theme.BackgroundColor
 import ru.alexbur.uikit.theme.BottomNavigationHeight
-import ru.alexbur.uikit.theme.Secondary
+import ru.alexbur.uikit.theme.Typography
 import javax.inject.Inject
 
 @Composable
@@ -87,7 +84,7 @@ fun ScannedDataScreen(
                 .padding(top = 20.dp, start = 60.dp, end = 60.dp),
             text = stringResource(id = R.string.scanned_data_title),
             textAlign = TextAlign.Center,
-            style = TextStyle(color = Secondary, fontSize = 20.sp, fontWeight = FontWeight(600))
+            style = Typography.titleMedium
         )
 
         ScannedDataList(

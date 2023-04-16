@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 val PrimaryFirst = Color(0xFF6461FC)
 val BackgroundSecond = Color(0xFF1E1BAD)
-val List = Color(0xFF8886F1)
+val ListColor = Color(0xFF8886F1)
 val TextColor = Color(0xFFD0D0D0)
 val SnackBarTextColor = Color(0xFF012550)
 val PlaceHolderColor = Color(0xFF7E7E7E)
@@ -14,3 +14,4 @@ val IconTint = Color(0xFF2C0383)
 val SuccessColor = Color(0xFF58C64E)
 val ErrorColor = Color(0xFFEB3A3A)
 val BackgroundColor = Brush.verticalGradient(listOf(PrimaryFirst, BackgroundSecond))
+val ShimmerPlaceHolderColor = Color(0xFFA3D4D4).copy(alpha = 0.8f)
