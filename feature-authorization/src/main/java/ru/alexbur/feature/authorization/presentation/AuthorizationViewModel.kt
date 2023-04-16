@@ -16,7 +16,9 @@ class AuthorizationViewModel @Inject constructor(
     private val stringProvider: StringProvider
 ) : BaseViewModel<AuthorizationViewState>(AuthorizationViewState.EnterData) {
 
-    fun auth(login: String, password: String) {
+    var login = ""
+    var password = ""
+    fun auth() {
         viewModelScope.launch {
             interactor.auth(login, password).onSuccess {
                 showSnackBar(stringProvider.getString(R.string.auth_success), isSuccess = true)

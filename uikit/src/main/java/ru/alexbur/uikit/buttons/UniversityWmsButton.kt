@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -30,16 +31,15 @@ fun UniversityWmsButton(
 
     Column(
         modifier = modifier
+            .clip(RoundedCornerShape(cornerRadius))
             .background(
                 brush = Brush.verticalGradient(listOf(BackgroundSecond, MaterialTheme.colorScheme.primary)),
-                shape = RoundedCornerShape(cornerRadius)
             )
-            .padding(14.dp)
             .clickable {
                 onClick()
             }
+            .padding(14.dp)
     ) {
-
         Text(
             text = text,
             modifier = Modifier.fillMaxWidth(),

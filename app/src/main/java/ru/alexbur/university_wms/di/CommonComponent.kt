@@ -22,6 +22,7 @@ import javax.inject.Singleton
     ]
 )
 interface CommonComponent : CommonComponentMediator {
+
     override fun context(): Context
     override fun stringProvider(): StringProvider
     override fun dispatcherProvider(): DispatcherProvider

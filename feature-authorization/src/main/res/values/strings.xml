@@ -1,3 +1,6 @@
 <resources>
     <string name="auth_success">Успешно! Авторизация пройдена.</string>
+    <string name="auth_login">Логин</string>
+    <string name="auth_password">Пароль</string>
+    <string name="auth_come_in">Войти</string>
 </resources>
