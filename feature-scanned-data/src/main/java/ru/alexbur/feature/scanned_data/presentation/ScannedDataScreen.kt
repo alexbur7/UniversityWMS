@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -12,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
@@ -26,6 +26,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import ru.alexbur.core.di.navigation.NavigationFactory
 import ru.alexbur.core.di.navigation.NavigationScreenFactory
+import ru.alexbur.core.presentation.ViewEvent
+import ru.alexbur.core.presentation.snackbar.UniversityWmsSnackBarHost
+import ru.alexbur.core.presentation.snackbar.showSnackBar
 import ru.alexbur.feature.scanned_data.R
 import ru.alexbur.feature.scanned_data.di.ScannedDataComponent
 import ru.alexbur.feature.scanned_data.presentation.list.ScannedDataList
@@ -35,7 +38,7 @@ import javax.inject.Inject
 
 @Composable
 fun ScannedDataScreen(
-    navController: NavController?,
+    navController: NavController,
     viewModel: ScannedDataViewModel = viewModel(modelClass = ScannedDataViewModel::class.java,
         key = null,
         factory = object : ViewModelProvider.Factory {
@@ -50,22 +53,29 @@ fun ScannedDataScreen(
         viewModel.viewState.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
     }
     val state = viewStateLifecycleAware.collectAsState(initial = ScannedDataViewState.Initial)
+    val viewEventLifecycleAware = remember(viewModel.viewEvent, lifecycleOwner) {
+        viewModel.viewEvent.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+    }
+    val viewEvent = viewEventLifecycleAware.collectAsState(initial = null)
     val data = remember { mutableStateOf(emptyList<ScannedDataListItem>()) }
-    LaunchedEffect(key1 = state.value) {
+    val snackBarHostState = SnackbarHostState()
+    LaunchedEffect(key1 = state.value, key2 = viewEvent.value) {
         when (val newState = state.value) {
             ScannedDataViewState.Initial -> Unit
             is ScannedDataViewState.ShowScannedData -> {
                 data.value = newState.data
             }
         }
+        when (val event = viewEvent.value) {
+            is ViewEvent.Navigation -> TODO()
+            is ViewEvent.ShowSnackBar -> {
+                snackBarHostState.showSnackBar(event.text, event.status)
+            }
+            else -> Unit
+        }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-    ) {
-
+    Column {
         Text(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,6 +92,8 @@ fun ScannedDataScreen(
             data = data.value
         )
     }
+
+    UniversityWmsSnackBarHost(hostState = snackBarHostState)
 }
 
 class ScannedDataScreenFactory @Inject constructor() : NavigationScreenFactory {
@@ -89,7 +101,7 @@ class ScannedDataScreenFactory @Inject constructor() : NavigationScreenFactory {
     companion object Companion : NavigationFactory.NavigationFactoryCompanion
 
     override val factoryType: List<NavigationFactory.NavigationFactoryType>
-        get() = listOf(NavigationFactory.NavigationFactoryType.Main)
+        get() = listOf(NavigationFactory.NavigationFactoryType.Nested)
 
     override fun create(builder: NavGraphBuilder, navGraph: NavHostController) {
         builder.composable(
@@ -98,10 +110,4 @@ class ScannedDataScreenFactory @Inject constructor() : NavigationScreenFactory {
             ScannedDataScreen(navGraph)
         }
     }
-}
-
-@Preview
-@Composable
-internal fun ScannedDataScreenPreview() {
-    ScannedDataScreen(navController = null)
 }
