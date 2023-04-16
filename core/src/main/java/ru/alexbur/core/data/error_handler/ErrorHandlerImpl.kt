@@ -5,6 +5,7 @@ import retrofit2.HttpException
 import ru.alexbur.core.domain.error_handler.ErrorHandler
 import ru.alexbur.uikit.R
 import java.net.ConnectException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class ErrorHandlerImpl @Inject constructor(
@@ -18,6 +19,9 @@ class ErrorHandlerImpl @Inject constructor(
             }
             is ConnectException -> {
                 context.getString(R.string.internet_error)
+            }
+            is SocketTimeoutException -> {
+                context.getString(R.string.socket_timeout_error)
             }
             else -> context.getString(R.string.unknown_error)
         }

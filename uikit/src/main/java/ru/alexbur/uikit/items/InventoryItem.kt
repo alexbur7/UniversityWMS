@@ -104,7 +104,7 @@ fun InventoryItem(
 
 @Preview
 @Composable
-fun InventoryItemPreview() {
+internal fun InventoryItemPreview() {
     InventoryItem(
         modifier = Modifier.fillMaxWidth(),
         title = "qfwjfqfpwfnlkjfnqwfhnqwpi",

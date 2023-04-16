@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -35,6 +36,7 @@ import ru.alexbur.feature.authorization.di.AuthorizationComponent
 import ru.alexbur.feature.authorization.presentation.shape.CustomShape
 import ru.alexbur.uikit.buttons.UniversityWmsButton
 import ru.alexbur.uikit.text_field.UniversityWmsTextField
+import ru.alexbur.uikit.theme.IconTint
 import javax.inject.Inject
 
 @Composable
@@ -92,6 +94,7 @@ fun AuthorizationScreen(
                     .padding(top = 44.dp, start = 24.dp, end = 24.dp),
                 textLabel = stringResource(id = R.string.auth_login),
                 startIconId = ru.alexbur.uikit.R.drawable.ic_user,
+                iconTint = IconTint,
                 onValueChanged = viewModel::login::set
             )
 
@@ -101,6 +104,8 @@ fun AuthorizationScreen(
                     .padding(top = 24.dp, start = 24.dp, end = 24.dp),
                 textLabel = stringResource(id = R.string.auth_password),
                 startIconId = ru.alexbur.uikit.R.drawable.ic_lock,
+                iconTint = IconTint,
+                keyboardType = KeyboardType.Password,
                 onValueChanged = viewModel::password::set
             )
 

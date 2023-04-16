@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 
 
-class CustomShape(private val radius: Float) : Shape {
+internal class CustomShape(private val radius: Float) : Shape {
 
     override fun createOutline(size: Size, layoutDirection: LayoutDirection, density: Density): Outline {
         return Outline.Generic(

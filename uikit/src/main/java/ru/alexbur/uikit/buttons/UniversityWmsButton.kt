@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.alexbur.uikit.theme.BackgroundSecond
-import ru.alexbur.uikit.theme.TextColor
+import ru.alexbur.uikit.theme.PrimaryFirst
 
 @Composable
 fun UniversityWmsButton(
@@ -33,7 +33,7 @@ fun UniversityWmsButton(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
             .background(
-                brush = Brush.verticalGradient(listOf(BackgroundSecond, MaterialTheme.colorScheme.primary)),
+                brush = Brush.verticalGradient(listOf(PrimaryFirst, BackgroundSecond)),
             )
             .clickable {
                 onClick()
@@ -43,7 +43,7 @@ fun UniversityWmsButton(
         Text(
             text = text,
             modifier = Modifier.fillMaxWidth(),
-            style = TextStyle(color = TextColor, fontSize = 16.sp, textAlign = TextAlign.Center)
+            style = TextStyle(color = Color.White, fontSize = 16.sp, textAlign = TextAlign.Center)
         )
     }
 }
