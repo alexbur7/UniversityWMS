@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Scanner</string>
+    <string name="scanner_title">Сканирование QR-кода</string>
+    <string name="inventory_success">Успешно! Товар с ШК %1$s проинвентаризирован.</string>
 </resources>
