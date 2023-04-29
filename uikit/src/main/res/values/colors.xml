@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_color">#6461FC</color>
+    <color name="background_color">#303D5F</color>
+    <color name="status_bar_color">#1C2948</color>
 </resources>

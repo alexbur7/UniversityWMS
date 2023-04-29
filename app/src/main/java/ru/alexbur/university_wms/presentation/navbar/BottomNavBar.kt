@@ -8,22 +8,29 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ru.alexbur.core.presentation.ViewEvent
 import ru.alexbur.uikit.theme.BottomNavigationHeight
 import ru.alexbur.uikit.theme.IconTint
 import ru.alexbur.uikit.theme.PlaceHolderColor
+import ru.alexbur.university_wms.di.MainComponent
 
 @Composable
 fun BottomNavBar(
-    navController: NavController,
+    navController: NavController
 ) {
 
     val navControllerBackStackEntry by navController.currentBackStackEntryAsState()
@@ -36,18 +43,18 @@ fun BottomNavBar(
             .selectableGroup(),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        NavItem.NavBarItems.values().forEach { tab ->
-            val isSelected = tab.route == route
-            if (tab == NavItem.NavBarItems.SCANNER) {
+        NavBarItems.values().forEach { tab ->
+            val isSelected = tab.router.route == route
+            if (tab == NavBarItems.SCANNER) {
                 NavigationBarItem(
                     modifier = Modifier
                         .weight(1f)
                         .height(BottomNavigationHeight),
                     selected = isSelected,
                     onClick = {
-                        if (tab.route != route) {
+                        if (tab.router.route != route) {
                             with(navController) {
-                                navigate(tab.route) {
+                                navigate(tab.router.route) {
                                     popUpTo(graph.startDestinationId) {
                                         saveState = true
                                     }
@@ -73,9 +80,9 @@ fun BottomNavBar(
                         .height(48.dp)
                         .background(Color.White)
                         .clickable {
-                            if (tab.route != route) {
+                            if (tab.router.route != route) {
                                 with(navController) {
-                                    navigate(tab.route) {
+                                    navigate(tab.router.route) {
                                         popUpTo(graph.startDestinationId) {
                                             saveState = true
                                         }

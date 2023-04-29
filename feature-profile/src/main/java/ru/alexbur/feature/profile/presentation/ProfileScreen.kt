@@ -24,6 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import ru.alexbur.core.di.navigation.NavigationFactory
 import ru.alexbur.core.di.navigation.NavigationScreenFactory
+import ru.alexbur.core.domain.navigation.Router
 import ru.alexbur.core.presentation.ViewEvent
 import ru.alexbur.core.presentation.snackbar.UniversityWmsSnackBarHost
 import ru.alexbur.core.presentation.snackbar.showSnackBar
@@ -57,7 +58,6 @@ fun ProfileScreen(
     val snackBarHostState = SnackbarHostState()
     LaunchedEffect(key1 = viewEvent.value) {
         when (val event = viewEvent.value) {
-            is ViewEvent.Navigation -> TODO()
             is ViewEvent.ShowSnackBar -> {
                 snackBarHostState.showSnackBar(event.text, event.status)
             }
@@ -80,7 +80,7 @@ fun ProfileScreen(
             style = TextStyle(color = Secondary, fontSize = 20.sp, fontWeight = FontWeight(600))
         )
 
-        ProfileCardScreen(modifier = Modifier, profile = profile.value)
+        ProfileCardScreen(modifier = Modifier, profile = profile.value, viewModel::exit)
     }
 
     UniversityWmsSnackBarHost(hostState = snackBarHostState)
@@ -88,14 +88,12 @@ fun ProfileScreen(
 
 class ProfileScreenFactory @Inject constructor() : NavigationScreenFactory {
 
-    companion object Companion : NavigationFactory.NavigationFactoryCompanion
-
     override val factoryType: List<NavigationFactory.NavigationFactoryType>
         get() = listOf(NavigationFactory.NavigationFactoryType.Nested)
 
     override fun create(builder: NavGraphBuilder, navGraph: NavHostController) {
         builder.composable(
-            route = route
+            route = Router.ProfileRouter.route
         ) {
             ProfileScreen(navGraph)
         }

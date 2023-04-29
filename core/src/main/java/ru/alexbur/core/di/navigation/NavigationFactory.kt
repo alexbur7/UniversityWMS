@@ -9,9 +9,6 @@ interface NavigationFactory {
 
     interface NavigationFactoryCompanion {
         val route: String
-            get() = with(javaClass) {
-                `package`?.name.orEmpty() + canonicalName
-            }
     }
 
     fun create(

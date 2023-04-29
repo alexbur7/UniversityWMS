@@ -8,6 +8,7 @@ import ru.alexbur.core.di.module.ContextModule
 import ru.alexbur.core.di.module.NetworkModule
 import ru.alexbur.core.domain.datastore.AccountDataStore
 import ru.alexbur.core.domain.error_handler.ErrorHandler
+import ru.alexbur.core.domain.manager.CommunicateManager
 import ru.alexbur.core.domain.mediators.CommonComponentMediator
 import ru.alexbur.core.domain.providers.DispatcherProvider
 import ru.alexbur.core.domain.providers.StringProvider
@@ -28,5 +29,6 @@ interface CommonComponent : CommonComponentMediator {
     override fun dispatcherProvider(): DispatcherProvider
     override fun errorHandler(): ErrorHandler
     override fun retrofit(): Retrofit
+    override fun communicateManager(): CommunicateManager
     override fun accountDataStore(): AccountDataStore
 }

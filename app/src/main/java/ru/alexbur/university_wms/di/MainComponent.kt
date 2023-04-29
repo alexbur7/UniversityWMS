@@ -5,6 +5,7 @@ import ru.alexbur.core.di.named.MainScope
 import ru.alexbur.core.domain.manager.CommonComponentManager
 import ru.alexbur.core.domain.mediators.CommonComponentMediator
 import ru.alexbur.university_wms.MainActivity
+import ru.alexbur.university_wms.presentation.navbar.BottomNavBarViewModel
 
 @MainScope
 @Component(
@@ -12,6 +13,8 @@ import ru.alexbur.university_wms.MainActivity
     modules = [NavigationFactoriesModule::class]
 )
 interface MainComponent {
+
+    fun getViewModel(): BottomNavBarViewModel
 
     fun inject(mainActivity: MainActivity)
 

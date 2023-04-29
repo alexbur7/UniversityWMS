@@ -1,9 +1,12 @@
 package ru.alexbur.feature.profile.presentation.card
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -19,12 +22,13 @@ import com.google.accompanist.placeholder.shimmer
 import ru.alexbur.feature.profile.domain.models.Profile
 import ru.alexbur.uikit.R
 import ru.alexbur.uikit.extentions.backgroundItem
+import ru.alexbur.uikit.theme.IconTint
 import ru.alexbur.uikit.theme.ListColor
 import ru.alexbur.uikit.theme.ShimmerPlaceHolderColor
 import ru.alexbur.uikit.theme.Typography
 
 @Composable
-fun ProfileCardScreen(modifier: Modifier, profile: Profile?) {
+fun ProfileCardScreen(modifier: Modifier, profile: Profile?, exitFromProfile: () -> Unit) {
     Row(
         modifier = modifier
             .padding(24.dp)
@@ -55,6 +59,19 @@ fun ProfileCardScreen(modifier: Modifier, profile: Profile?) {
         )
 
         Column {
+            Icon(
+                modifier = Modifier
+                    .padding(18.dp)
+                    .size(24.dp)
+                    .align(Alignment.End)
+                    .clickable {
+                        exitFromProfile.invoke()
+                    },
+                painter = painterResource(id = R.drawable.ic_exit),
+                contentDescription = "Exit from profile",
+                tint = IconTint
+            )
+
             Text(
                 modifier = Modifier.padding(start = 12.dp, top = 24.dp, end = 12.dp),
                 text = profile?.name.orEmpty(),
@@ -80,5 +97,7 @@ internal fun ProfileCardScreen() {
             name = "Азиз Суроев",
             jobTitle = "Разнорабочий"
         )
-    )
+    ) {
+
+    }
 }

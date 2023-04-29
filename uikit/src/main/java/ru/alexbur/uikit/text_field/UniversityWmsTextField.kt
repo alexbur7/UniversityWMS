@@ -2,16 +2,22 @@ package ru.alexbur.uikit.text_field
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -22,8 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.alexbur.uikit.R
-import ru.alexbur.uikit.theme.IconTint
-import ru.alexbur.uikit.theme.PlaceHolderColor
+import ru.alexbur.uikit.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,20 +47,35 @@ fun UniversityWmsTextField(
     val showPassword = remember { { visibility.value = !visibility.value } }
 
     TextField(
-        modifier = modifier.background(Color.White),
+        modifier = modifier
+            .clip(RoundedCornerShape(24.dp))
+            .border(
+                width = 0.5.dp,
+                brush = Brush.horizontalGradient(listOf(BorderColor, Color.Transparent)),
+                shape = RoundedCornerShape(24.dp)
+            )
+            .background(ListColor),
         value = text.value,
         placeholder = {
             Text(text = textLabel, style = TextStyle(color = PlaceHolderColor, fontSize = 16.sp))
         },
         leadingIcon = {
-            Icon(
-                modifier = Modifier.size(24.dp),
-                painter = painterResource(id = startIconId),
-                contentDescription = "Icon",
-                tint = iconTint
-            )
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(IconBackColor)
+                    .size(40.dp)
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .size(24.dp)
+                        .align(Alignment.Center),
+                    painter = painterResource(id = startIconId),
+                    contentDescription = "Icon",
+                    tint = iconTint
+                )
+            }
         },
-        shape = RectangleShape,
         onValueChange = {
             text.value = it
             onValueChanged(it)
@@ -66,7 +86,8 @@ fun UniversityWmsTextField(
         ),
         textStyle = LocalTextStyle.current.copy(fontSize = 16.sp),
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.Transparent
+            containerColor = Color.Transparent,
+            textColor = iconTint
         ),
         trailingIcon = {
             if (keyboardType == KeyboardType.Password) {

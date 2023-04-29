@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.UniversityWMS" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor">@color/background_color</item>
-        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <item name="android:windowBackground">@color/status_bar_color</item>
     </style>
 </resources>

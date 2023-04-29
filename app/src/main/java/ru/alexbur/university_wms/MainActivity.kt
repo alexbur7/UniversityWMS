@@ -12,10 +12,10 @@ import ru.alexbur.core.data.extentions.filter
 import ru.alexbur.core.di.navigation.NavigationFactory
 import ru.alexbur.core.di.navigation.NavigationHostFactory
 import ru.alexbur.core.di.navigation.NavigationScreenFactory
-import ru.alexbur.uikit.theme.PrimaryFirst
+import ru.alexbur.core.domain.navigation.Router
+import ru.alexbur.uikit.theme.FirstBackColorColor
 import ru.alexbur.uikit.theme.UniversityWMSTheme
 import ru.alexbur.university_wms.di.MainComponent
-import ru.alexbur.university_wms.presentation.navbar.NavItem
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
@@ -35,11 +35,11 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = PrimaryFirst
+                    color = FirstBackColorColor
                 ) {
                     NavHost(
                         navController = navController,
-                        startDestination = NavItem.MainScreen.route//if (account == null) NavItem.Authorization.route else NavItem.MainScreen.route
+                        startDestination = Router.AuthRouter.route
                     ) {
                         mutableSetOf<NavigationFactory>().apply {
                             addAll(

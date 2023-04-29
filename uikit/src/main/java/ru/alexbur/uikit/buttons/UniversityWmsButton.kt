@@ -1,6 +1,7 @@
 package ru.alexbur.uikit.buttons
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ru.alexbur.uikit.theme.BackgroundSecond
-import ru.alexbur.uikit.theme.PrimaryFirst
+import ru.alexbur.uikit.theme.BorderColor
+import ru.alexbur.uikit.theme.IconTint
 
 @Composable
 fun UniversityWmsButton(
@@ -32,8 +33,11 @@ fun UniversityWmsButton(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
-            .background(
-                brush = Brush.verticalGradient(listOf(PrimaryFirst, BackgroundSecond)),
+            .background(color = IconTint)
+            .border(
+                width = 0.5.dp,
+                brush = Brush.horizontalGradient(listOf(BorderColor, Color.Transparent)),
+                shape = RoundedCornerShape(cornerRadius)
             )
             .clickable {
                 onClick()

@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import ru.alexbur.core.di.navigation.NavigationFactory
 import ru.alexbur.core.di.navigation.NavigationScreenFactory
+import ru.alexbur.core.domain.navigation.Router
 import ru.alexbur.core.presentation.ViewEvent
 import ru.alexbur.core.presentation.snackbar.UniversityWmsSnackBarHost
 import ru.alexbur.core.presentation.snackbar.showSnackBar
@@ -100,14 +101,12 @@ fun ScannedDataScreen(
 
 class ScannedDataScreenFactory @Inject constructor() : NavigationScreenFactory {
 
-    companion object Companion : NavigationFactory.NavigationFactoryCompanion
-
     override val factoryType: List<NavigationFactory.NavigationFactoryType>
         get() = listOf(NavigationFactory.NavigationFactoryType.Nested)
 
     override fun create(builder: NavGraphBuilder, navGraph: NavHostController) {
         builder.composable(
-            route = route
+            route = Router.ScannerDataRouter.route
         ) {
             ScannedDataScreen(navGraph)
         }

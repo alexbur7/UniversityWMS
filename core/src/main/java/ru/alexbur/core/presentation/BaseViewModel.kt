@@ -16,4 +16,8 @@ abstract class BaseViewModel<VS : ViewState>(defaultState: VS) : ViewModel() {
     protected suspend fun showSnackBar(text: String, status: SnackBarStatus) {
         viewEventMutable.send(ViewEvent.ShowSnackBar(text, status))
     }
+
+    protected fun popBackStack(data: Any? = null) {
+        viewEventMutable.trySend(ViewEvent.PopBackStack(data))
+    }
 }

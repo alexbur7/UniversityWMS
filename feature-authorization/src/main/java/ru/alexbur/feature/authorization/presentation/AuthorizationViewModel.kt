@@ -3,6 +3,7 @@ package ru.alexbur.feature.authorization.presentation
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.alexbur.core.domain.error_handler.ErrorHandler
+import ru.alexbur.core.domain.navigation.Router
 import ru.alexbur.core.domain.providers.StringProvider
 import ru.alexbur.core.presentation.BaseViewModel
 import ru.alexbur.core.presentation.ViewEvent
@@ -19,6 +20,7 @@ class AuthorizationViewModel @Inject constructor(
 
     var login = ""
     var password = ""
+
     fun auth() {
         viewModelScope.launch {
             if (login.isBlank() || password.isBlank()) {
@@ -26,8 +28,7 @@ class AuthorizationViewModel @Inject constructor(
                 return@launch
             }
             interactor.auth(login, password).onSuccess {
-                showSnackBar(stringProvider.getString(R.string.auth_success), SnackBarStatus.SUCCESS)
-                viewEventMutable.send(ViewEvent.PopBackStack())
+                viewEventMutable.send(ViewEvent.Navigation(Router.MainRouter))
             }.onFailure {
                 showSnackBar(errorHandler.handleError(it), SnackBarStatus.ERROR)
             }

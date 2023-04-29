@@ -15,7 +15,7 @@ fun Modifier.backgroundItem(): Modifier {
         .clip(RoundedCornerShape(24.dp))
         .border(
             width = 1.dp,
-            brush = Brush.verticalGradient(listOf(Secondary, ListColor)),
+            brush = Brush.verticalGradient(listOf(ListColor, Secondary)),
             shape = RoundedCornerShape(24.dp)
         )
         .background(color = ListColor)

@@ -11,11 +11,6 @@ internal class QRCodeAnalyzer(
     private val onQrCodeScanned: (result: String?) -> Unit
 ) : ImageAnalysis.Analyzer {
 
-    companion object {
-        private val SUPPORTED_IMAGE_FORMATS =
-            listOf(ImageFormat.YUV_420_888, ImageFormat.YUV_422_888, ImageFormat.YUV_444_888)
-    }
-
     override fun analyze(image: ImageProxy) {
         if (image.format in SUPPORTED_IMAGE_FORMATS) {
             val bytes = image.planes.first().buffer.toByteArray()
@@ -50,5 +45,10 @@ internal class QRCodeAnalyzer(
     private fun ByteBuffer.toByteArray(): ByteArray {
         rewind()
         return ByteArray(remaining()).also { get(it) }
+    }
+
+    companion object {
+        private val SUPPORTED_IMAGE_FORMATS =
+            listOf(ImageFormat.YUV_420_888, ImageFormat.YUV_422_888, ImageFormat.YUV_444_888)
     }
 }
