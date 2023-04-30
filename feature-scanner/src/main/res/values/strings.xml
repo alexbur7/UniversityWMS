@@ -1,4 +1,5 @@
 <resources>
     <string name="scanner_title">Сканирование QR-кода</string>
     <string name="inventory_success">Успешно! Товар с ШК %1$s проинвентаризирован.</string>
+    <string name="scanner_instruction">Наведи камеру на штрих-код</string>
 </resources>

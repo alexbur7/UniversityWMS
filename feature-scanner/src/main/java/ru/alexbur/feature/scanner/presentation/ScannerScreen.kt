@@ -4,24 +4,19 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -33,8 +28,12 @@ import androidx.navigation.compose.composable
 import ru.alexbur.core.di.navigation.NavigationFactory
 import ru.alexbur.core.di.navigation.NavigationScreenFactory
 import ru.alexbur.core.domain.navigation.Router
+import ru.alexbur.feature.scanner.R
 import ru.alexbur.feature.scanner.di.ScannerComponent
-import ru.alexbur.feature.scanner.presentation.analyzer.QRCodeAnalyzer
+import ru.alexbur.feature.scanner.presentation.scanner_view.ScannerViewScreen
+import ru.alexbur.uikit.theme.BackgroundColor
+import ru.alexbur.uikit.theme.BottomNavigationHeight
+import ru.alexbur.uikit.theme.IconTint
 import javax.inject.Inject
 
 @Composable
@@ -50,10 +49,6 @@ fun ScannerScreen(
         })
 ) {
     val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
-
-    var code by remember { mutableStateOf("") }
     var hasCameraPermission by remember {
         mutableStateOf(
             ContextCompat.checkSelfPermission(
@@ -71,49 +66,31 @@ fun ScannerScreen(
         launcher.launch(Manifest.permission.CAMERA)
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        if (hasCameraPermission) {
-            AndroidView(
-                factory = { context ->
-                    val previewView = PreviewView(context)
-                    val preview = Preview.Builder().build()
-                    val selector = CameraSelector.Builder()
-                        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                        .build()
-                    preview.setSurfaceProvider(previewView.surfaceProvider)
-                    val imageAnalysis = ImageAnalysis.Builder()
-                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                        .build()
-                    imageAnalysis.setAnalyzer(
-                        ContextCompat.getMainExecutor(context),
-                        QRCodeAnalyzer { result ->
-                            result?.let {
-                                code = it
-                                viewModel.scanBarcode(it)
-                            }
-                        }
-                    )
-
-                    runCatching {
-                        cameraProviderFuture.get().bindToLifecycle(
-                            lifecycleOwner,
-                            selector,
-                            preview,
-                            imageAnalysis
-                        )
-                    }
-
-                    return@AndroidView previewView
-                },
-                modifier = Modifier.weight(1f)
-            )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BackgroundColor)
+    ) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .fillMaxWidth()
+        ) {
+            if (hasCameraPermission) {
+                ScannerViewScreen(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
+                    onScanBarcode = viewModel::scanBarcode
+                )
+            }
             Text(
-                text = code,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(32.dp)
+                    .padding(top = 40.dp, bottom = BottomNavigationHeight + 24.dp),
+                text = stringResource(id = R.string.scanner_instruction),
+                color = IconTint,
+                style = TextStyle(textAlign = TextAlign.Center, fontWeight = FontWeight.Medium, fontSize = 18.sp),
             )
         }
     }

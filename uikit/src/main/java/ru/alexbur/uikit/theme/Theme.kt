@@ -12,13 +12,13 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = FirstBackColorColor,
+    primary = ThirdBackColorColor,
     secondary = ListColor,
     tertiary = Secondary
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = FirstBackColorColor,
+    primary = ThirdBackColorColor,
     secondary = ListColor,
     tertiary = Secondary,
 
@@ -51,7 +51,7 @@ fun UniversityWMSTheme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
+            (view.context as Activity).window.statusBarColor = ThirdBackColorColor.toArgb()
             WindowCompat.getInsetsController((view.context as Activity).window, view).isAppearanceLightStatusBars =
                 darkTheme
         }

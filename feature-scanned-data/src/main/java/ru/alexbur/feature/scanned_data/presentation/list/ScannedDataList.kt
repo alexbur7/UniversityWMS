@@ -16,7 +16,7 @@ import ru.alexbur.uikit.theme.BottomNavigationHeight
 fun ScannedDataList(modifier: Modifier, data: List<ScannedDataListItem>) {
     LazyColumn(
         modifier = modifier.padding(vertical = 8.dp),
-        contentPadding = PaddingValues(bottom = BottomNavigationHeight)
+        contentPadding = PaddingValues(bottom = BottomNavigationHeight + 16.dp)
     ) {
         items(data.size) {
             when (val item = data[it]) {
