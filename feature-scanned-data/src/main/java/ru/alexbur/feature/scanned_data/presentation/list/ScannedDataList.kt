@@ -1,5 +1,6 @@
 package ru.alexbur.feature.scanned_data.presentation.list
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,11 +10,13 @@ import androidx.compose.ui.unit.dp
 import ru.alexbur.feature.scanned_data.presentation.utils.ScannedDataListItem
 import ru.alexbur.uikit.items.InventoryItem
 import ru.alexbur.uikit.items.SingleLineItem
+import ru.alexbur.uikit.theme.BottomNavigationHeight
 
 @Composable
 fun ScannedDataList(modifier: Modifier, data: List<ScannedDataListItem>) {
     LazyColumn(
-        modifier = modifier.padding(vertical = 8.dp)
+        modifier = modifier.padding(vertical = 8.dp),
+        contentPadding = PaddingValues(bottom = BottomNavigationHeight)
     ) {
         items(data.size) {
             when (val item = data[it]) {

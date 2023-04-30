@@ -50,6 +50,48 @@ class ScannedDataApiMock : ScannedDataApi {
                     type = "Product",
                     quantity = 12
                 ),
+                ScannedDataResponse(
+                    barcode = "ab251521521",
+                    name = "User 1245125121mgwfmwemf2mw",
+                    date = 1681652614,
+                    type = "Product",
+                    quantity = 12
+                ),
+                ScannedDataResponse(
+                    barcode = "ab20221521",
+                    name = "User 1245125121mgwfmwemf2mw",
+                    date = 1681652614,
+                    type = "Product",
+                    quantity = 7
+                ),
+                ScannedDataResponse(
+                    barcode = "ab2509121521",
+                    name = "User 21mgwfmwemf2mw",
+                    date = 1681652614,
+                    type = "Product",
+                    quantity = 12
+                ),
+                ScannedDataResponse(
+                    barcode = "ab21529121",
+                    name = "User mgwfmwemf2mw",
+                    date = 1681652614,
+                    type = "Product",
+                    quantity = 18
+                ),
+                ScannedDataResponse(
+                    barcode = "ab521521",
+                    name = "User 124512w",
+                    date = 1681652614,
+                    type = "Product",
+                    quantity = 128
+                ),
+                ScannedDataResponse(
+                    barcode = "ab251521521",
+                    name = "User 124emf2mw",
+                    date = 1681652614,
+                    type = "Product",
+                    quantity = 10
+                ),
             )
         )
     }

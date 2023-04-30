@@ -6,7 +6,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -29,7 +33,7 @@ fun InventoryItem(
     startIcon: Int,
     barcode: String
 ) {
-    var isExpandable by remember { mutableStateOf(false) }
+    var isExpandable by rememberSaveable { mutableStateOf(false) }
     Row(
         modifier = modifier
             .padding(vertical = 8.dp, horizontal = 20.dp)

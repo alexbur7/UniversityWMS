@@ -30,7 +30,6 @@ import ru.alexbur.feature.scanned_data.di.ScannedDataComponent
 import ru.alexbur.feature.scanned_data.presentation.list.ScannedDataList
 import ru.alexbur.feature.scanned_data.presentation.utils.ScannedDataListItem
 import ru.alexbur.uikit.theme.BackgroundColor
-import ru.alexbur.uikit.theme.BottomNavigationHeight
 import ru.alexbur.uikit.theme.Typography
 import javax.inject.Inject
 
@@ -77,7 +76,6 @@ fun ScannedDataScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundColor)
-            .padding(bottom = BottomNavigationHeight)
     ) {
         Text(
             modifier = Modifier
