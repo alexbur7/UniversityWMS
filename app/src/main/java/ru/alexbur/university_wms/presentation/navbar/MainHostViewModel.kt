@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import ru.alexbur.core.domain.manager.CommunicateManager
 import javax.inject.Inject
 
-class BottomNavBarViewModel @Inject constructor(
+class MainHostViewModel @Inject constructor(
     communicateManager: CommunicateManager
 ) : ViewModel() {
 

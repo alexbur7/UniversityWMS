@@ -73,7 +73,7 @@ fun ProfileCardScreen(modifier: Modifier, profile: Profile?, exitFromProfile: ()
             )
 
             Text(
-                modifier = Modifier.padding(start = 12.dp, top = 24.dp, end = 12.dp),
+                modifier = Modifier.padding(start = 12.dp, top = 8.dp, end = 12.dp),
                 text = profile?.name.orEmpty(),
                 style = Typography.displayLarge
             )

@@ -1,3 +1,4 @@
 <resources>
     <string name="profile_title">Профиль</string>
+    <string name="profile_exit_confirm_message">Вы точно хотите выйти из профиля?</string>
 </resources>

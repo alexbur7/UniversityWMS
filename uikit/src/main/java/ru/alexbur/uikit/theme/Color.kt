@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 val ListColor = Color(0xFF8A96B5)
 val TextColor = Color(0xFFD0D0D0)
+val SecondaryTextColor = Color(0xFF7E7E7E)
 val SnackBarTextColor = Color(0xFF012550)
 val PlaceHolderColor = Color(0xFFBCCBDF)
 val BorderColor = Color(0xFFC3CDE5)

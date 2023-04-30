@@ -31,6 +31,7 @@ import ru.alexbur.core.presentation.snackbar.showSnackBar
 import ru.alexbur.feature.profile.R
 import ru.alexbur.feature.profile.di.ProfileComponent
 import ru.alexbur.feature.profile.presentation.card.ProfileCardScreen
+import ru.alexbur.uikit.dialogs.UniversityWMSDialog
 import ru.alexbur.uikit.theme.BackgroundColor
 import ru.alexbur.uikit.theme.BottomNavigationHeight
 import ru.alexbur.uikit.theme.Secondary
@@ -48,7 +49,7 @@ fun ProfileScreen(
             }
         })
 ) {
-
+    val isVisibleConfirmDialog = remember { mutableStateOf(false) }
     val lifecycleOwner = LocalLifecycleOwner.current
     val profile = viewModel.profileFlow.collectAsState(null)
     val viewEventLifecycleAware = remember(viewModel.viewEvent, lifecycleOwner) {
@@ -56,6 +57,15 @@ fun ProfileScreen(
     }
     val viewEvent = viewEventLifecycleAware.collectAsState(initial = null)
     val snackBarHostState = SnackbarHostState()
+    val setVisibleConfirmDialog: (Boolean) -> Unit = remember {
+        { isVisible -> isVisibleConfirmDialog.value = isVisible }
+    }
+    val confirmClick = remember {
+        {
+            viewModel.exit()
+            setVisibleConfirmDialog(false)
+        }
+    }
     LaunchedEffect(key1 = viewEvent.value) {
         when (val event = viewEvent.value) {
             is ViewEvent.ShowSnackBar -> {
@@ -80,10 +90,24 @@ fun ProfileScreen(
             style = TextStyle(color = Secondary, fontSize = 20.sp, fontWeight = FontWeight(600))
         )
 
-        ProfileCardScreen(modifier = Modifier, profile = profile.value, viewModel::exit)
+        ProfileCardScreen(modifier = Modifier, profile = profile.value) {
+            setVisibleConfirmDialog(true)
+        }
     }
 
     UniversityWmsSnackBarHost(hostState = snackBarHostState)
+
+    if (isVisibleConfirmDialog.value) {
+        UniversityWMSDialog(
+            modifier = Modifier,
+            text = stringResource(id = R.string.profile_exit_confirm_message),
+            confirmButtonText = stringResource(id = ru.alexbur.uikit.R.string.yes),
+            dismissButtonText = stringResource(id = ru.alexbur.uikit.R.string.cancel),
+            onConfirmClick = { confirmClick() }
+        ) {
+            setVisibleConfirmDialog(false)
+        }
+    }
 }
 
 class ProfileScreenFactory @Inject constructor() : NavigationScreenFactory {

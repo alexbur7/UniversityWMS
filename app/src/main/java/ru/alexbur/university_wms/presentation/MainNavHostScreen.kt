@@ -30,7 +30,7 @@ import ru.alexbur.core.presentation.ViewEvent
 import ru.alexbur.uikit.theme.FirstBackColorColor
 import ru.alexbur.university_wms.di.MainComponent
 import ru.alexbur.university_wms.presentation.navbar.BottomNavBar
-import ru.alexbur.university_wms.presentation.navbar.BottomNavBarViewModel
+import ru.alexbur.university_wms.presentation.navbar.MainHostViewModel
 import javax.inject.Inject
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -39,7 +39,7 @@ import javax.inject.Inject
 fun MainNavHostScreen(
     navController: NavController,
     navigationFactoryList: List<NavigationFactory>,
-    viewModel: BottomNavBarViewModel = viewModel(modelClass = BottomNavBarViewModel::class.java,
+    viewModel: MainHostViewModel = viewModel(modelClass = MainHostViewModel::class.java,
         key = null,
         factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

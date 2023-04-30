@@ -5,7 +5,7 @@ import ru.alexbur.core.di.named.MainScope
 import ru.alexbur.core.domain.manager.CommonComponentManager
 import ru.alexbur.core.domain.mediators.CommonComponentMediator
 import ru.alexbur.university_wms.MainActivity
-import ru.alexbur.university_wms.presentation.navbar.BottomNavBarViewModel
+import ru.alexbur.university_wms.presentation.navbar.MainHostViewModel
 
 @MainScope
 @Component(
@@ -14,7 +14,7 @@ import ru.alexbur.university_wms.presentation.navbar.BottomNavBarViewModel
 )
 interface MainComponent {
 
-    fun getViewModel(): BottomNavBarViewModel
+    fun getViewModel(): MainHostViewModel
 
     fun inject(mainActivity: MainActivity)
 
