@@ -40,11 +40,11 @@ fun UniversityWmsTextField(
     iconTint: Color,
     initialField: String = "",
     keyboardType: KeyboardType = KeyboardType.Text,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    visualTransformation: VisualTransformation  = VisualTransformation.None,
     onValueChanged: (String) -> Unit = { },
 ) {
     val text = remember { mutableStateOf(initialField) }
-    val visibility = remember { mutableStateOf(false) }
-    val showPassword = remember { { visibility.value = !visibility.value } }
 
     TextField(
         modifier = modifier
@@ -87,31 +87,12 @@ fun UniversityWmsTextField(
         textStyle = LocalTextStyle.current.copy(fontSize = 16.sp),
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Color.Transparent,
-            textColor = iconTint
+            textColor = iconTint,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
         ),
-        trailingIcon = {
-            if (keyboardType == KeyboardType.Password) {
-                Icon(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { showPassword() },
-                    painter = painterResource(
-                        id = if (visibility.value) {
-                            R.drawable.ic_eye_password_hide
-                        } else {
-                            R.drawable.ic_eye
-                        }
-                    ),
-                    contentDescription = "Icon Eye",
-                    tint = iconTint
-                )
-            }
-        },
-        visualTransformation = if (keyboardType == KeyboardType.Password && !visibility.value) {
-            PasswordVisualTransformation()
-        } else {
-            VisualTransformation.None
-        }
+        trailingIcon = trailingIcon,
+        visualTransformation = visualTransformation
     )
 }
 

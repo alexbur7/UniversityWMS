@@ -4,10 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,6 +12,8 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
@@ -33,6 +32,7 @@ import ru.alexbur.core.presentation.snackbar.UniversityWmsSnackBarHost
 import ru.alexbur.core.presentation.snackbar.showSnackBar
 import ru.alexbur.feature.authorization.R
 import ru.alexbur.feature.authorization.di.AuthorizationComponent
+import ru.alexbur.feature.authorization.presentation.password_icon.ShowPasswordIcon
 import ru.alexbur.uikit.buttons.UniversityWmsButton
 import ru.alexbur.uikit.text_field.UniversityWmsTextField
 import ru.alexbur.uikit.theme.BackgroundColor
@@ -58,6 +58,9 @@ fun AuthorizationScreen(
 
     val viewEvent = viewEventLifecycleAware.collectAsState(initial = null)
     val snackBarHostState = SnackbarHostState()
+    val visibility = remember { mutableStateOf(false) }
+    val showPassword = remember { { visibility.value = !visibility.value } }
+
     LaunchedEffect(key1 = viewEvent.value) {
         when (val event = viewEvent.value) {
             is ViewEvent.Navigation -> {
@@ -101,7 +104,11 @@ fun AuthorizationScreen(
             textLabel = stringResource(id = R.string.auth_password),
             startIconId = ru.alexbur.uikit.R.drawable.ic_lock,
             iconTint = IconTint,
+            trailingIcon = {
+                ShowPasswordIcon(visibility.value, showPassword)
+            },
             keyboardType = KeyboardType.Password,
+            visualTransformation = if (visibility.value) PasswordVisualTransformation() else VisualTransformation.None,
             onValueChanged = viewModel::password::set
         )
 
