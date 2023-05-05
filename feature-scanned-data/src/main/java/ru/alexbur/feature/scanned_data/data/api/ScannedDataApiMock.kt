@@ -1,5 +1,6 @@
 package ru.alexbur.feature.scanned_data.data.api
 
+import ru.alexbur.core.data.mock_db.MockDB
 import ru.alexbur.feature.scanned_data.data.models.response.ScannedDataListResponse
 import ru.alexbur.feature.scanned_data.data.models.response.ScannedDataResponse
 
@@ -7,6 +8,16 @@ class ScannedDataApiMock : ScannedDataApi {
 
     override suspend fun getScannedData(): ScannedDataListResponse {
         return ScannedDataListResponse(
+            data = MockDB.scannerData.value.mapIndexed { index, pair ->
+                ScannedDataResponse(
+                    barcode = pair.second,
+                    name = "Name ${pair.second}",
+                    date = pair.first,
+                    type = if (index % 2 == 0 ) "Product" else "Tech",
+                    quantity = index
+                )
+            })
+        /*return ScannedDataListResponse(
             data = listOf(
                 ScannedDataResponse(
                     barcode = "ab251521521",
@@ -93,6 +104,6 @@ class ScannedDataApiMock : ScannedDataApi {
                     quantity = 10
                 ),
             )
-        )
+        )*/
     }
 }

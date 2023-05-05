@@ -21,7 +21,7 @@ class ScannedDataViewModel @Inject constructor(
         getData()
     }
 
-    private fun getData() {
+    fun getData() {
         viewModelScope.launch {
             interactor.getData().onSuccess {
                 viewStateMutable.value = ScannedDataViewState.ShowScannedData(convertToUiData(it))

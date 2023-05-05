@@ -8,6 +8,6 @@ class StringProvidersImpl @Inject constructor(
     private val context: Context
 ) : StringProvider {
     override fun getString(resId: Int, vararg argument: Any): String {
-        return context.getString(resId, argument)
+        return context.getString(resId, argument.toString())
     }
 }

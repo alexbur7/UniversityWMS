@@ -6,11 +6,13 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -18,8 +20,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -28,6 +32,9 @@ import androidx.navigation.compose.composable
 import ru.alexbur.core.di.navigation.NavigationFactory
 import ru.alexbur.core.di.navigation.NavigationScreenFactory
 import ru.alexbur.core.domain.navigation.Router
+import ru.alexbur.core.presentation.ViewEvent
+import ru.alexbur.core.presentation.snackbar.UniversityWmsSnackBarHost
+import ru.alexbur.core.presentation.snackbar.showSnackBar
 import ru.alexbur.feature.scanner.R
 import ru.alexbur.feature.scanner.di.ScannerComponent
 import ru.alexbur.feature.scanner.presentation.scanner_view.ScannerViewScreen
@@ -61,6 +68,22 @@ fun ScannerScreen(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { granted -> hasCameraPermission = granted }
     )
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val viewEventLifecycleAware = remember(viewModel.viewEvent, lifecycleOwner) {
+        viewModel.viewEvent.flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+    }
+    val viewEvent = viewEventLifecycleAware.collectAsState(initial = null)
+    val snackBarHostState = SnackbarHostState()
+
+    LaunchedEffect(viewEvent.value) {
+        when (val event = viewEvent.value) {
+            is ViewEvent.Navigation -> Unit
+            is ViewEvent.ShowSnackBar -> {
+                snackBarHostState.showSnackBar(event.text, event.status)
+            }
+            else -> Unit
+        }
+    }
 
     LaunchedEffect(key1 = true) {
         launcher.launch(Manifest.permission.CAMERA)
@@ -94,6 +117,8 @@ fun ScannerScreen(
             )
         }
     }
+
+    UniversityWmsSnackBarHost(hostState = snackBarHostState)
 }
 
 class ScannerScreenFactory @Inject constructor() : NavigationScreenFactory {

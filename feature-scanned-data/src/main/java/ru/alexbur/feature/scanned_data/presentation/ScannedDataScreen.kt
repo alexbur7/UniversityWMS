@@ -23,6 +23,7 @@ import ru.alexbur.core.di.navigation.NavigationFactory
 import ru.alexbur.core.di.navigation.NavigationScreenFactory
 import ru.alexbur.core.domain.navigation.Router
 import ru.alexbur.core.presentation.ViewEvent
+import ru.alexbur.core.presentation.extensions.OnLifecycleEvent
 import ru.alexbur.core.presentation.snackbar.UniversityWmsSnackBarHost
 import ru.alexbur.core.presentation.snackbar.showSnackBar
 import ru.alexbur.feature.scanned_data.R
@@ -56,6 +57,16 @@ fun ScannedDataScreen(
     val viewEvent = viewEventLifecycleAware.collectAsState(initial = null)
     val data = remember { mutableStateOf(emptyList<ScannedDataListItem>()) }
     val snackBarHostState = SnackbarHostState()
+
+    OnLifecycleEvent { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> {
+                viewModel.getData()
+            }
+            else -> Unit
+        }
+    }
+
     LaunchedEffect(key1 = state.value, key2 = viewEvent.value) {
         when (val newState = state.value) {
             ScannedDataViewState.Initial -> Unit
@@ -64,7 +75,7 @@ fun ScannedDataScreen(
             }
         }
         when (val event = viewEvent.value) {
-            is ViewEvent.Navigation -> TODO()
+            is ViewEvent.Navigation -> Unit
             is ViewEvent.ShowSnackBar -> {
                 snackBarHostState.showSnackBar(event.text, event.status)
             }
