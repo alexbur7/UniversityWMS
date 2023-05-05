@@ -4,4 +4,11 @@
         <item name="android:statusBarColor">@color/status_bar_color</item>
         <item name="android:windowBackground">@color/status_bar_color</item>
     </style>
+
+    <style name="Theme.SplashWMS" parent="Theme.UniversityWMS">
+        <item name="android:windowBackground">@drawable/ic_cube</item>
+        <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/background_color</item>
+    </style>
 </resources>

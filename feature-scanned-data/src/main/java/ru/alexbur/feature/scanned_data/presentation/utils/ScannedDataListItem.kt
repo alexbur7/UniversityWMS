@@ -7,7 +7,7 @@ sealed class ScannedDataListItem {
     data class Product(
         val name: String,
         val barcode: String,
-        val quantity: Int,
+        val quantity: String,
         @DrawableRes
         val icon: Int
     ) : ScannedDataListItem()

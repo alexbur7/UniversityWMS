@@ -58,7 +58,7 @@ fun AuthorizationScreen(
 
     val viewEvent = viewEventLifecycleAware.collectAsState(initial = null)
     val snackBarHostState = SnackbarHostState()
-    val visibility = remember { mutableStateOf(false) }
+    val visibility = remember { mutableStateOf(true) }
     val showPassword = remember { { visibility.value = !visibility.value } }
 
     LaunchedEffect(key1 = viewEvent.value) {

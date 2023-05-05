@@ -3,6 +3,7 @@ package ru.alexbur.feature.scanned_data.presentation
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.alexbur.core.domain.error_handler.ErrorHandler
+import ru.alexbur.core.domain.providers.StringProvider
 import ru.alexbur.core.presentation.BaseViewModel
 import ru.alexbur.core.presentation.snackbar.SnackBarStatus
 import ru.alexbur.feature.scanned_data.domain.interactor.ScannedDataInteractor
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 class ScannedDataViewModel @Inject constructor(
     private val interactor: ScannedDataInteractor,
-    private val errorHandler: ErrorHandler
+    private val errorHandler: ErrorHandler,
+    private val stringProvider: StringProvider
 ) : BaseViewModel<ScannedDataViewState>(ScannedDataViewState.Initial) {
 
     init {
@@ -39,7 +41,7 @@ class ScannedDataViewModel @Inject constructor(
                         ScannedDataListItem.Product(
                             name = scannedData.name,
                             barcode = scannedData.barcode,
-                            quantity = scannedData.quantity,
+                            quantity = scannedData.quantity.toString(),
                             icon = scannedData.type.iconRes
                         )
                     )

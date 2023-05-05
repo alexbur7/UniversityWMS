@@ -27,7 +27,7 @@ fun ScannedDataList(modifier: Modifier, data: List<ScannedDataListItem>) {
                 is ScannedDataListItem.Product -> InventoryItem(
                     modifier = Modifier.fillMaxWidth(),
                     title = item.name,
-                    count = item.quantity.toString(),
+                    count = item.quantity,
                     startIcon = item.icon,
                     barcode = item.barcode
                 )

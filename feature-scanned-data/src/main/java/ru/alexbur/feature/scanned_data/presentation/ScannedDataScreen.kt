@@ -80,7 +80,7 @@ fun ScannedDataScreen(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp, start = 60.dp, end = 60.dp),
+                .padding(top = 20.dp),
             text = stringResource(id = R.string.scanned_data_title),
             textAlign = TextAlign.Center,
             style = Typography.titleMedium

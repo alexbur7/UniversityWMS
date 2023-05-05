@@ -3,6 +3,7 @@ package ru.alexbur.uikit.items
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
@@ -13,6 +14,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,7 +38,7 @@ fun InventoryItem(
     var isExpandable by rememberSaveable { mutableStateOf(false) }
     Row(
         modifier = modifier
-            .padding(vertical = 8.dp, horizontal = 20.dp)
+            .padding(vertical = 10.dp, horizontal = 20.dp)
             .backgroundItem()
             .clickable {
                 isExpandable = !isExpandable

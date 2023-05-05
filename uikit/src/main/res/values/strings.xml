@@ -8,4 +8,5 @@
     <string name="socket_timeout_error">Превышен лимит ожидания ответа от сервера</string>
     <string name="yes">Да</string>
     <string name="cancel">Отмена</string>
+    <string name="quantity">%1$d шт.</string>
 </resources>
